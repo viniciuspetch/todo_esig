@@ -21,11 +21,6 @@ public class Todo {
 	public void init() {
 		System.out.println("init");
 		itemList = new ArrayList<TodoItem>();
-		/*
-		itemList.add(new TodoItem("asdfgh", 15));
-		itemList.add(new TodoItem("qwerty", 30));
-		itemList.add(new TodoItem("zxcvbn", 45));
-		*/
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -44,7 +39,7 @@ public class Todo {
 			while(rs.next()) {				
 				System.out.println(rs.getString(1));
 				System.out.println(rs.getString(2));
-				itemList.add(new TodoItem(rs.getString(2), 111));
+				itemList.add(new TodoItem(rs.getInt(1), rs.getString(2)));
 			}
 			rs.close();
 			st.close();

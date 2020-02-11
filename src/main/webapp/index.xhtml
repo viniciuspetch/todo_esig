@@ -10,7 +10,7 @@
 	</h:form>
 	<h3>Read</h3>
 	<ui:repeat var="item" value="#{todo.itemList}">
-		<p>#{item.name} #{item.value}</p>
+		<p>#{item.id} #{item.content}</p>
 		<h:form>
 			<h:commandButton action="#{todo.update}" value="Update" />
 			<h:commandButton action="#{todo.delete}" value="Delete" />

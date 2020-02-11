@@ -1,28 +1,32 @@
 package jsftutorial;
 
 public class TodoItem {
-	private String name;
-	private int value;
+	private int id;
+	private String content;
+
 	
-	public TodoItem(String name, int value) {
-		this.setName(name);
-		this.setValue(value);
+	public TodoItem(int id, String content) {
+		this.setId(id);
+		this.setContent(content);
 	}
 
-	public String getName() {
-		return name;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getValue() {
-		return value;
+
+	public String getContent() {
+		return content;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
-	}
-	
+
+	public void setContent(String content) {
+		this.content = content;
+	}	
 }
