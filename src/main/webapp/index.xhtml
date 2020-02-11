@@ -13,7 +13,7 @@
 		<p>#{item.id} #{item.content}</p>
 		<h:form>
 			<h:commandButton action="#{todo.update}" value="Update" />
-			<h:commandButton action="#{todo.delete}" value="Delete" />
+			<h:commandButton action="#{todo.delete(item.id)}" value="Delete" />
 		</h:form>
 	</ui:repeat>
 </body>
