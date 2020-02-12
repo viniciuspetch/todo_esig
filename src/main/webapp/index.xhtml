@@ -3,26 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <body>
+	<h3>Refresh</h3>
 	<h:form>
 		<h:commandButton action="#{todo.refresh}" value="Refresh" />
 	</h:form>
 	
+	<h3>Create</h3>
 	<h:form>
 		<h:inputText value="#{todo.newContent}"/>
 		<h:commandButton action="#{todo.create}" value="Create" />
 	</h:form>
 	
-	<h:form>
-		<h:inputText value="#{todo.editId}"/>
-		<h:inputText value="#{todo.editContent}"/>		
-		<h:commandButton action="#{todo.update}" value="Update" />
-	</h:form>
+	<div id="edit">
+		<c:if test="#{todo.editId != -1}">
+			<h3>Update</h3>
+			<h:form>
+				<h:inputHidden value="#{todo.editId}"/>
+				#{todo.editId}
+				<h:inputText value="#{todo.editContent}"/>		
+				<h:commandButton action="#{todo.update}" value="Update" />
+			</h:form>
+		</c:if>
+	</div>
 	
+	
+	<h3>Read</h3>
 	<ui:repeat var="item" value="#{todo.itemList}">
 		<h:form>
-			#{item.id} #{item.content}
+			#{item.id} #{item.content }<br/>
+			<h:commandButton action="#{todo.toUpdate(item.id, item.content)}" value="Edit" />
 			<h:commandButton action="#{todo.delete(item.id)}" value="Delete" />
 		</h:form>
 	</ui:repeat>

@@ -52,6 +52,7 @@ public class Todo {
 	@PostConstruct
 	public void init() {
 		System.out.println("init");
+		editId = -1;
 		updateTodoItemList();
 	}
 
@@ -117,6 +118,13 @@ public class Todo {
 		}
 
 		updateTodoItemList();
+	}
+	
+	public String toUpdate(int id, String content) {
+		editId = id;
+		editContent = content;
+		
+		return "index";
 	}
 
 	public String getNewContent() {
