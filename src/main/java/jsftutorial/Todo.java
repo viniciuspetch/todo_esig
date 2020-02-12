@@ -60,6 +60,11 @@ public class Todo {
 	public void setItemList(List<TodoItem> itemList) {
 		this.itemList = itemList;
 	}
+
+	public String refresh() {
+		updateTodoItemList();
+		return "index";
+	}
 	
 	public void create() {
 		System.out.println("create");
