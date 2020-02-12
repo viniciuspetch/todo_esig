@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 public class Todo {
 	public Connection conn;
 	private List<TodoItem> itemList;
+	private String newContent;
 
 	public void updateTodoItemList() {
 		itemList = new ArrayList<TodoItem>();
@@ -67,8 +68,17 @@ public class Todo {
 	}
 	
 	public void create() {
-		System.out.println("create");
-		//return "index2";
+		System.out.println("create " + newContent);
+		try {
+			PreparedStatement st = conn.prepareStatement("INSERT INTO items (content) VALUES (?)"); 
+			st.setString(1, newContent);
+			int rowsCreated = st.executeUpdate();
+			System.out.println(rowsCreated);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		updateTodoItemList();
 	}
@@ -93,5 +103,13 @@ public class Todo {
 		}
 		
 		updateTodoItemList();
+	}
+
+	public String getNewContent() {
+		return newContent;
+	}
+
+	public void setNewContent(String newContent) {
+		this.newContent = newContent;
 	}
 }
