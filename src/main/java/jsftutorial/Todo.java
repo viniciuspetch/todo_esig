@@ -45,7 +45,20 @@ public class Todo {
 	    entityManagerFactory.close();
 	}
 
-	public void updateTodoItemList() {
+	public void updateTodoItemList() {		
+		itemList = new ArrayList<TodoItem>();
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		List<TodoItem> newList = entityManager.createQuery("select e from TodoItem e").getResultList();
+		
+		for (TodoItem item : newList) {
+			itemList.add(item);
+	    }
+		
+	    entityManager.close();
+	    entityManagerFactory.close();
+		/*
 		itemList = new ArrayList<TodoItem>();
 
 		try {
@@ -75,6 +88,7 @@ public class Todo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	@PostConstruct
