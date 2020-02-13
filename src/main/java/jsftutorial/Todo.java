@@ -8,6 +8,7 @@ import java.sql.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.*;
 
 @ManagedBean
 @SessionScoped
@@ -17,7 +18,22 @@ public class Todo {
 	private String newContent;
 	
 	private int editId;
-	private String editContent;	
+	private String editContent;
+
+	public void testHibernate() {
+		System.out.println("test lmao");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		TodoItem newItem = new TodoItem();
+		newItem.setContent("hibernate");
+		entityManager.getTransaction().begin();
+		entityManager.persist(newItem);
+		entityManager.getTransaction().commit();
+		
+	    entityManager.close();
+	    entityManagerFactory.close();		
+	}
 
 	public void updateTodoItemList() {
 		itemList = new ArrayList<TodoItem>();
@@ -39,7 +55,9 @@ public class Todo {
 			while (rs.next()) {
 				//System.out.println(rs.getString(1));
 				//System.out.println(rs.getString(2));
-				itemList.add(new TodoItem(rs.getInt(1), rs.getString(2)));
+				TodoItem item = new TodoItem();
+				item.set(rs.getInt(1), rs.getString(2));
+				itemList.add(item);
 			}
 			rs.close();
 			st.close();

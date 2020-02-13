@@ -1,11 +1,16 @@
 package jsftutorial;
+import javax.persistence.*;
 
+@Entity
+@Table(name="items")
 public class TodoItem {
+	@Id
+	@GeneratedValue
 	private int id;
 	private String content;
 
 	
-	public TodoItem(int id, String content) {
+	public void set(int id, String content) {
 		this.setId(id);
 		this.setContent(content);
 	}
