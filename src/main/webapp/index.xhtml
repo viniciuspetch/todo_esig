@@ -38,7 +38,7 @@
 	<h3>Read</h3>
 	<ui:repeat var="item" value="#{todo.itemList}">
 		<h:form>
-			#{item.id} #{item.content }<br/>
+			#{item.id} #{item.content}<br/>
 			<h:commandButton action="#{todo.toUpdate(item.id, item.content)}" value="Edit" />
 			<h:commandButton action="#{todo.delete(item.id)}" value="Delete" />
 		</h:form>
