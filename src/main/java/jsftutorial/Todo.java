@@ -22,17 +22,27 @@ public class Todo {
 
 	public void testHibernate() {
 		System.out.println("test lmao");
+		/*
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
 		TodoItem newItem = new TodoItem();
 		newItem.setContent("hibernate");
 		entityManager.getTransaction().begin();
 		entityManager.persist(newItem);
 		entityManager.getTransaction().commit();
+	    entityManager.close();
+	    entityManagerFactory.close();
+	    */
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		List<TodoItem> newList = entityManager.createQuery("select e from TodoItem e").getResultList();
+		
+		for (TodoItem item : newList) {
+	        System.out.println(item.getContent());
+	    }
 		
 	    entityManager.close();
-	    entityManagerFactory.close();		
+	    entityManagerFactory.close();
 	}
 
 	public void updateTodoItemList() {
@@ -89,17 +99,17 @@ public class Todo {
 
 	public void create() {
 		System.out.println("create " + newContent);
-		try {
-			PreparedStatement st = conn.prepareStatement("INSERT INTO items (content) VALUES (?)");
-			st.setString(1, newContent);
-			int rowsCreated = st.executeUpdate();
-			System.out.println(rowsCreated);
-			st.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		TodoItem newItem = new TodoItem();
+		newItem.setContent(newContent);
+		entityManager.getTransaction().begin();
+		entityManager.persist(newItem);
+		entityManager.getTransaction().commit();
+	    entityManager.close();
+	    entityManagerFactory.close();
+		
 		updateTodoItemList();
 	}
 
