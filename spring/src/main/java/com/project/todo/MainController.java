@@ -78,4 +78,13 @@ public class MainController {
 		todoItemRepository.delete(todoItem);
 		return hello(model);
 	}
+	
+	@GetMapping(path = "/editTodoItem")
+	public String editTodoItem(@ModelAttribute TodoItem todoItem, Model model) {
+		System.out.println(todoItem);
+		System.out.println(todoItem.getId());
+		System.out.println(todoItem.getContent());
+		todoItemRepository.save(todoItem);
+		return hello(model);
+	}
 }

@@ -15,12 +15,18 @@
 	</form>
 
 	<div th:each="item: ${itemList}">
-		<span th:text="${item.id}" /> <span th:text="${item.content}" />
-			<form action="#" th:action="@{/deleteTodoItem}"
-				th:object="${item}" method="get">
-				<input type="hidden" th:value="*{id}" id="id" name="id"/> <input type="submit"
-					value="Delete" />
-			</form> <br />
+		<span th:text="${item.id}" />
+		<span th:text="${item.content}" />		
+		<form action="#" th:action="@{/deleteTodoItem}" th:object="${item}" method="get">
+			<input type="hidden" th:value="*{id}" id="id" name="id" />
+			<input type="submit" value="Delete" />
+		</form>
+		<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
+			<input type="hidden" th:value="*{id}" id="id" name="id" />			
+			<input type="text" th:value="*{content}" id="content" name="content" />
+			<input type="submit" value="Edit" />
+		</form>
+		<br />
 	</div>
 
 </body>
