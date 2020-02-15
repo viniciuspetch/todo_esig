@@ -3,6 +3,9 @@ package com.project.todo;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +59,15 @@ public class MainController {
 	 */
 	@RequestMapping(path = "/hello")
 	public String hello(Model model) {
-		Iterable<TodoItem> itemList = todoItemRepository.findAll();
+		Iterable<TodoItem> itemListIterable = todoItemRepository.findAll();
+		ArrayList<TodoItem> itemList = new ArrayList<>();
+		itemListIterable.forEach(itemList::add);
+		Collections.sort(itemList, new Comparator<TodoItem>() {
+			@Override
+			public int compare(TodoItem item1, TodoItem item2) {
+				return Integer.compare(item2.getId(), item1.getId());
+			}
+		}); 
 		
 		model.addAttribute("name", "partner");
 		model.addAttribute("todoItem", new TodoItem());
