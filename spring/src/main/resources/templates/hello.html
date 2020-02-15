@@ -10,30 +10,37 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </head>
-<body style="max-width: 800px; margin: auto">
-	<p th:text="'Hello, ' + ${name} + '!'" />
-
-	<h3>Create</h3>
-	<form action="#" th:action="@{/createTodoItem}" th:object="${todoItem}"
-		method="get">
-		<input type="text" th:field="*{content}" /> <input type="submit"
-			value="Create" />
-	</form>
-
-	<div th:each="item: ${itemList}">
-		<span th:text="${item.id}" />
-		<span th:text="${item.content}" />		
-		<form action="#" th:action="@{/deleteTodoItem}" th:object="${item}" method="get">
-			<input type="hidden" th:value="*{id}" id="id" name="id" />
-			<input type="submit" value="Delete" />
-		</form>
-		<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
-			<input type="hidden" th:value="*{id}" id="id" name="id" />			
-			<input type="text" th:value="*{content}" id="content" name="content" />
-			<input type="submit" value="Edit" />
-		</form>
-		<br />
+<body style="max-width: 800px; margin: auto; padding: 20px;">
+	
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<form class="card" action="#" th:action="@{/createTodoItem}" th:object="${todoItem}" method="get">
+					<div style="margin: 10px;" class="form-group">
+					    <label for="content">Create</label>
+						<input style="margin: 0 0 5px 0;" class="form-control" type="text" th:field="*{content}" />
+						<input class="btn btn-primary" type="submit" value="Create" />
+					</div>
+				</form>	
+			</div>			
+			<div th:each="item: ${itemList}" class="col-6">
+				<div style="margin: 10px 0; padding: 10px" class="card">
+					<h5 class="card-title" th:text="${item.id}" />
+					<p class="card-text" th:text="${item.content}" />		
+					
+					<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
+						<input type="hidden" th:value="*{id}" id="id" name="id" />			
+						<input style="margin: 20px 0 5px 0" class="form-control" type="text" th:value="*{content}" id="content" name="content" />
+						<input class="btn btn-primary btn-block" type="submit" value="Edit" />
+					</form>
+					<form action="#" th:action="@{/deleteTodoItem}" th:object="${item}" method="get">
+						<input type="hidden" th:value="*{id}" id="id" name="id" />
+						<input style="margin: 5px 0 0 0" class="btn btn-danger btn-block" type="submit" value="Delete"/>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
-
 </body>
 </html>
