@@ -1,22 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    
-    <h3>Create</h3>    
-    <form action="#" th:action="@{/createTodoItem}" th:object="${todoItem}" method="get">
-    	<input type="text" th:field="*{content}"/>
-    	<input type="submit" value="Create"/>
+	<p th:text="'Hello, ' + ${name} + '!'" />
+
+	<h3>Create</h3>
+	<form action="#" th:action="@{/createTodoItem}" th:object="${todoItem}"
+		method="get">
+		<input type="text" th:field="*{content}" /> <input type="submit"
+			value="Create" />
 	</form>
-    
-    <div th:each="item: ${itemList}">
-    	<span th:text="${item.id}"/>
-    	<span th:text="${item.content}"/><br/>
-    </div>
-    
+
+	<div th:each="item: ${itemList}">
+		<span th:text="${item.id}" /> <span th:text="${item.content}" />
+			<form action="#" th:action="@{/deleteTodoItem}"
+				th:object="${item}" method="get">
+				<input type="hidden" th:value="*{id}" id="id" name="id"/> <input type="submit"
+					value="Delete" />
+			</form> <br />
+	</div>
+
 </body>
 </html>
