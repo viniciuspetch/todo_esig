@@ -20,15 +20,40 @@
 					<div style="margin: 10px;" class="form-group">
 					    <label for="content">Create</label>
 						<input style="margin: 0 0 5px 0;" class="form-control" type="text" th:field="*{content}" />
+						<input type="hidden" value="false" id="checked" name="checked" />
 						<input class="btn btn-primary" type="submit" value="Create" />
 					</div>
 				</form>	
 			</div>			
 			<div th:each="item: ${itemList}" class="col-6">
 				<div style="margin: 10px 0; padding: 10px" class="card">
-					<h5 class="card-title" th:text="${item.id}" />
-					<p class="card-text" th:text="${item.content}" />		
-					
+					<h5 class="card-title">
+						<span th:text="${item.id}"/>
+						<div th:if="${item.checked}">
+							<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
+								<input type="hidden" th:value="*{id}" id="id" name="id" />
+								<input type="hidden" th:value="*{content}" id="content" name="content" />
+								<input type="hidden" value="false" id="checked" name="checked" />
+								<input style="margin: 5px 0 0 0" class="btn btn-sm btn-primary" type="submit" value="Uncheck" />
+							</form>
+						</div>
+						<div th:unless="${item.checked}">
+							<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
+								<input type="hidden" th:value="*{id}" id="id" name="id" />
+								<input type="hidden" th:value="*{content}" id="content" name="content" />
+								<input type="hidden" value="true" id="checked" name="checked" />
+								<input style="margin: 5px 0 0 0" class="btn btn-sm btn-primary" type="submit" value="Check"/>
+							</form>
+						</div>
+					</h5>
+
+					<div th:if="${item.checked}">
+						<s><p style="color: gray" class="card-text" th:text="${item.content}" /></s>
+					</div>
+					<div th:unless="${item.checked}">
+						<p class="card-text" th:text="${item.content}" />
+					</div>							
+
 					<form action="#" th:action="@{/editTodoItem}" th:object="${item}" method="get">
 						<input type="hidden" th:value="*{id}" id="id" name="id" />			
 						<input style="margin: 20px 0 5px 0" class="form-control" type="text" th:value="*{content}" id="content" name="content" />
