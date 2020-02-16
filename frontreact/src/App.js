@@ -40,23 +40,12 @@ class TodoItemCheck extends React.Component {
   }
 }
 
-class TodoItem extends React.Component {
-  render() {
-    return (
-      <div className="col-6">
-        <div style={{ margin: "10px 0", padding: "10px" }} className="card">
-          <h5 className={"card-title"}>
-            {this.props.id} <TodoItemCheck checked={this.props.checked} />
-          </h5>
-
-          <p className={"card-text"}>{this.props.content}</p>
-        </div>
-      </div>
-    );
-  }
-}
-
 class TodoItemCreate extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   handleSubmit(event) {
     console.log("handleSubmit");
     return false;
@@ -75,11 +64,81 @@ class TodoItemCreate extends React.Component {
         <input type="hidden" value="false" name="checked" />
         <input
           style={{ margin: "5px 0 0 0" }}
-          className="btn btn-sm btn-primary"
+          className="btn btn-primary"
           type="submit"
-          value="Check"
+          value="Create"
         />
       </form>
+    );
+  }
+}
+
+class TodoItemEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    console.log(event.target.value);
+  }
+
+  render() {
+    return (
+      <form action="#" onSubmit={this.handleSubmit}>
+        <input
+          style={{ margin: "20px 0 5px 0" }}
+          className="form-control"
+          type="text"
+          value={this.props.content}
+        />
+        <input
+          className="btn btn-primary btn-block"
+          type="submit"
+          value="Edit"
+        />
+      </form>
+    );
+  }
+}
+
+class TodoItemDelete extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    console.log(event.target.value);
+  }
+
+  render() {
+    return (
+      <form action="#" onSubmit={this.handleSubmit}>
+        <input
+          style={{ margin: "5px 0 0 0" }}
+          className="btn btn-danger btn-block"
+          type="submit"
+          value="Delete"
+        />
+      </form>
+    );
+  }
+}
+
+class TodoItem extends React.Component {
+  render() {
+    return (
+      <div className="col-6">
+        <div style={{ margin: "10px 0", padding: "10px" }} className="card">
+          <h5 className={"card-title"}>
+            {this.props.id} <TodoItemCheck checked={this.props.checked} />
+          </h5>
+          <p className={"card-text"}>{this.props.content}</p>
+          <TodoItemEdit />
+          <TodoItemDelete />
+        </div>
+      </div>
     );
   }
 }
