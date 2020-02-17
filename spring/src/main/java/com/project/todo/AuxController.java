@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 public class AuxController {
 	@Autowired
@@ -39,6 +39,15 @@ public class AuxController {
 		return itemList;
 	}
 
+	@PutMapping("/items/{id}")
+	public TodoItem editSingle(@RequestBody TodoItem todoItem, @PathVariable int id) {
+		todoItem.setId(id);
+		System.out.println(todoItem.getId());
+		System.out.println(todoItem.getContent());
+		System.out.println(todoItem.getChecked());
+		return todoItemRepository.save(todoItem);
+	}
+	
 	@DeleteMapping("/items/{id}")
 	public void deleteSingle(@PathVariable int id) {
 		todoItemRepository.deleteById(id);

@@ -110,10 +110,44 @@ class TodoItemEdit extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      content: this.props.content
+    };
   }
 
   handleSubmit(event) {
-    console.log(event.target.value);
+    event.preventDefault();
+    console.log("handleSubmit");
+    console.log(this.state.content);
+
+    fetch("http://localhost:8080/items/" + this.props.id, {
+      method: "put",
+      headers: {
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        content: this.state.content,
+        checked: this.props.checked
+      })
+    })
+      .then(res => {
+        console.log(res);
+        return res.json;
+      })
+      .then(res => {
+        console.log(res);
+        window.location.reload();
+      });
+
+    return false;
+  }
+
+  handleChange(event) {
+    this.setState({
+      content: event.target.value
+    });
   }
 
   render() {
@@ -123,7 +157,8 @@ class TodoItemEdit extends React.Component {
           style={{ margin: "20px 0 5px 0" }}
           className="form-control"
           type="text"
-          value={this.props.content}
+          value={this.state.content}
+          onChange={this.handleChange}
         />
         <input
           className="btn btn-primary btn-block"
@@ -184,7 +219,11 @@ class TodoItem extends React.Component {
             {this.props.id} <TodoItemCheck checked={this.props.checked} />
           </h5>
           <p className={"card-text"}>{this.props.content}</p>
-          <TodoItemEdit />
+          <TodoItemEdit
+            id={this.props.id}
+            content={this.props.content}
+            checked={this.props.checked}
+          />
           <TodoItemDelete id={this.props.id} />
         </div>
       </div>
@@ -214,14 +253,19 @@ class App extends React.Component {
   }
 
   render() {
-    let thing = this.state.todoItemList.map(item => (
-      <TodoItem
-        key={item.id}
-        id={item.id}
-        content={item.content}
-        checked={item.checked.toString()}
-      />
-    ));
+    let thing = this.state.todoItemList.map(item => {
+      if (item.checked == null) {
+        item.checked = false;
+      }
+      return (
+        <TodoItem
+          key={item.id}
+          id={item.id}
+          content={item.content}
+          checked={item.checked.toString()}
+        />
+      );
+    });
     console.log(thing);
     return (
       <div className={{ App }}>
