@@ -9,7 +9,11 @@ Este projeto está dividido em 3 pastas:
 
 ## Como rodar
 ### Banco de dados
+Criar um banco de dados PostgreSQL em `localhost:5432` com o nome `todo`. Caso o Hibernate não crie a tabela necessária, utilizar o script `database.sql` no diretório raiz do repositório
+
 ### Projeto com JSF
+Rodar o arquivo `index.xhtml` em `/original/src/main/java/webapp`, e acessar em `http://localhost:8080/jsftutorial/faces/index.xhtml`
+
 ### Projeto com Spring + Thymeleaf
 Rodar o arquivo Java `TodoApplication.java`, em `/spring/src/main/java/com/project/todo`, e acessar em `localhost:8080`
 
