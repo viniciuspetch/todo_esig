@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 public class AuxController {
 	@Autowired
 	private TodoItemRepository todoItemRepository;
-	
-	@RequestMapping("/api")
-	public TodoItem readSingle() {
-		TodoItem item = new TodoItem();
-		item.setId(7);
-		item.setContent("test");
-		return item;
+
+	@PostMapping("/items")
+	public TodoItem createSingle(@RequestBody TodoItem todoItem) {
+		System.out.println(todoItem.getId());
+		System.out.println(todoItem.getContent());
+		System.out.println(todoItem.getChecked());
+		return todoItemRepository.save(todoItem);
 	}
 	
 	@GetMapping("/items")
@@ -35,7 +35,7 @@ public class AuxController {
 				return Integer.compare(item2.getId(), item1.getId());
 			}
 		});
-		
+
 		return itemList;
 	}
 }

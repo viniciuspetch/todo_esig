@@ -43,25 +43,58 @@ class TodoItemCheck extends React.Component {
 class TodoItemCreate extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      content: "",
+      checked: false
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     console.log("handleSubmit");
+    console.log(this.state.content);
+
+    fetch("http://localhost:8080/items", {
+      method: "post",
+      headers: {
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ content: this.state.content, checked: false })
+    })
+      .then(res => {
+        console.log(res);
+        return res.json;
+      })
+      .then(res => {
+        console.log(res);
+        window.location.reload();
+      });
+
+    return false;
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+
     return false;
   }
 
   render() {
     return (
       <form action="#" onSubmit={this.handleSubmit}>
-        <input type="hidden" value={this.props.id} name="id" />
         <input
           style={{ margin: "0 0 5px 0" }}
           className="form-control"
           type="text"
           name="content"
+          onChange={this.handleChange}
         />
-        <input type="hidden" value="false" name="checked" />
         <input
           style={{ margin: "5px 0 0 0" }}
           className="btn btn-primary"
