@@ -57,7 +57,7 @@ public class MainController {
 	 * @GetMapping(path="/hello") public String hello(Model model) {
 	 * model.addAttribute("name", "partner"); return "hello"; }
 	 */
-	@RequestMapping(path = "/hello")
+	@RequestMapping(path = "/")
 	public String hello(Model model) {
 		Iterable<TodoItem> itemListIterable = todoItemRepository.findAll();
 		ArrayList<TodoItem> itemList = new ArrayList<>();
