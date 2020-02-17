@@ -7,6 +7,15 @@ Este projeto está dividido em 3 pastas:
 - `spring`, contendo a segunda versão com Spring (e Thymeleaf),
 - `frontreact`, contendo o front-end implementado com React, sendo alimentada pela segunda versão
 
+## Como rodar
+### Banco de dados
+### Projeto com JSF
+### Projeto com Spring + Thymeleaf
+Rodar o arquivo Java `TodoApplication.java`, em `/spring/src/main/java/com/project/todo`, e acessar em `localhost:8080`
+
+### projeto com React.js + Spring
+Rodar o arquivo Java `TodoApplication.java`, em `src/main/java/com/project/todo`, que servirá como API. Em seguida, acessar o projeto em /frontreact e inicializá-lo com `npm start`, e acessar em `localhost:3000`
+
 ## Itens implementados
 #### A: Aplicação web utilizando JavaServer Faces (JSF)
 Para o primeiro item, foi implementado um WebApp em Java, utilizando como front-end JavaServer Faces. Essa primeira versão implementa uma lista da tarefas contendo as 4 funcionalidades do CRUD.
