@@ -2,8 +2,39 @@ import React from "react";
 import "./App.css";
 
 class TodoItemCheck extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   handleSubmit(event) {
+    event.preventDefault();
     console.log("handleSubmit");
+    let nextChange = false;
+    if (this.props.checked === "false") {
+      nextChange = true;
+    }
+
+    fetch("http://localhost:8080/items/" + this.props.id, {
+      method: "put",
+      headers: {
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        content: this.props.content,
+        checked: nextChange
+      })
+    })
+      .then(res => {
+        console.log(res);
+        return res.json;
+      })
+      .then(res => {
+        console.log(res);
+        window.location.reload();
+      });
+
     return false;
   }
 
@@ -11,9 +42,6 @@ class TodoItemCheck extends React.Component {
     if (this.props.checked === "true") {
       return (
         <form action="#" onSubmit={this.handleSubmit}>
-          <input type="hidden" value={this.props.id} name="id" />
-          <input type="hidden" value={this.props.content} name="content" />
-          <input type="hidden" value={this.props.checked} name="checked" />
           <input
             style={{ margin: "5px 0 0 0" }}
             className="btn btn-sm btn-primary"
@@ -25,9 +53,6 @@ class TodoItemCheck extends React.Component {
     } else {
       return (
         <form action="#" onSubmit={this.handleSubmit}>
-          <input type="hidden" value={this.props.id} name="id" />
-          <input type="hidden" value={this.props.content} name="content" />
-          <input type="hidden" value={this.props.checked} name="checked" />
           <input
             style={{ margin: "5px 0 0 0" }}
             className="btn btn-sm btn-primary"
@@ -212,22 +237,55 @@ class TodoItemDelete extends React.Component {
 
 class TodoItem extends React.Component {
   render() {
-    return (
-      <div className="col-6">
-        <div style={{ margin: "10px 0", padding: "10px" }} className="card">
-          <h5 className={"card-title"}>
-            {this.props.id} <TodoItemCheck checked={this.props.checked} />
-          </h5>
-          <p className={"card-text"}>{this.props.content}</p>
-          <TodoItemEdit
-            id={this.props.id}
-            content={this.props.content}
-            checked={this.props.checked}
-          />
-          <TodoItemDelete id={this.props.id} />
+    if (this.props.checked === "false") {
+      return (
+        <div className="col-6">
+          <div style={{ margin: "10px 0", padding: "10px" }} className="card">
+            <h5 className={"card-title"}>
+              {this.props.id}{" "}
+              <TodoItemCheck
+                id={this.props.id}
+                content={this.props.content}
+                checked={this.props.checked}
+              />
+            </h5>
+            <p className={"card-text"}>{this.props.content}</p>
+            <TodoItemEdit
+              id={this.props.id}
+              content={this.props.content}
+              checked={this.props.checked}
+            />
+            <TodoItemDelete id={this.props.id} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="col-6">
+          <div style={{ margin: "10px 0", padding: "10px" }} className="card">
+            <h5 className={"card-title"}>
+              {this.props.id}{" "}
+              <TodoItemCheck
+                id={this.props.id}
+                content={this.props.content}
+                checked={this.props.checked}
+              />
+            </h5>
+            <s>
+              <p style={{ color: "gray" }} className={"card-text"}>
+                {this.props.content}
+              </p>
+            </s>
+            <TodoItemEdit
+              id={this.props.id}
+              content={this.props.content}
+              checked={this.props.checked}
+            />
+            <TodoItemDelete id={this.props.id} />
+          </div>
+        </div>
+      );
+    }
   }
 }
 
