@@ -142,7 +142,23 @@ class TodoItemDelete extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(event.target.value);
+    event.preventDefault();
+    console.log("handleSubmit");
+    console.log(this.props.id);
+
+    fetch("http://localhost:8080/items/" + this.props.id, {
+      method: "delete"
+    })
+      .then(res => {
+        console.log(res);
+        return res.json;
+      })
+      .then(res => {
+        console.log(res);
+        window.location.reload();
+      });
+
+    return false;
   }
 
   render() {
@@ -169,7 +185,7 @@ class TodoItem extends React.Component {
           </h5>
           <p className={"card-text"}>{this.props.content}</p>
           <TodoItemEdit />
-          <TodoItemDelete />
+          <TodoItemDelete id={this.props.id} />
         </div>
       </div>
     );
@@ -194,7 +210,6 @@ class App extends React.Component {
         this.setState({
           todoItemList: res
         });
-        console.log(this.state.todoItemList[0].checked);
       });
   }
 

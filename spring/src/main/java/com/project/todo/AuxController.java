@@ -23,7 +23,7 @@ public class AuxController {
 		System.out.println(todoItem.getChecked());
 		return todoItemRepository.save(todoItem);
 	}
-	
+
 	@GetMapping("/items")
 	public List<TodoItem> readAll() {
 		Iterable<TodoItem> itemListIterable = todoItemRepository.findAll();
@@ -37,5 +37,10 @@ public class AuxController {
 		});
 
 		return itemList;
+	}
+
+	@DeleteMapping("/items/{id}")
+	public void deleteSingle(@PathVariable int id) {
+		todoItemRepository.deleteById(id);
 	}
 }
