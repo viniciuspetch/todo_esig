@@ -33,7 +33,7 @@ Foi implementado Hibernate e JPA para se comunicar com o PostgreSQL
 #### D: Spring Boot
 A segunda versão foi implementada com o Spring Boot, assim como com o Spring MVC. Além das funcionalidades da primeira versão com JSF (e um design melhor), a segunda versão possui também a funcionalidade de marcar as tarefas já realizadas.
 
-#### E: Spring Boot
+#### E: Spring MVC
 A segunda versão foi implementada com o Spring MVC, assim como com o Spring Boot
 
 #### F: Bootstrap 4
