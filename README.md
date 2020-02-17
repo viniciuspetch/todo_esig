@@ -22,7 +22,7 @@ Rodar o arquivo Java `TodoApplication.java`, em `src/main/java/com/project/todo`
 
 ## Itens implementados
 #### A: Aplicação web utilizando JavaServer Faces (JSF)
-Para o primeiro item, foi implementado um WebApp em Java, utilizando como front-end JavaServer Faces. Essa primeira versão implementa uma lista da tarefas contendo as 4 funcionalidades do CRUD.
+Para o primeiro item, foi implementado um WebApp em Java, utilizando como front-end JavaServer Faces. Essa primeira versão implementa uma lista da tarefas contendo as 4 funcionalidades do CRUD
 
 #### B: Persistência em banco de dados
 Foi utilizado o PostgreSQL como banco de dados
@@ -31,13 +31,13 @@ Foi utilizado o PostgreSQL como banco de dados
 Foi implementado Hibernate e JPA para se comunicar com o PostgreSQL
 
 #### D: Spring Boot
-A segunda versão foi implementada com o Spring Boot, assim como com o Spring MVC. Além das funcionalidades da primeira versão com JSF (e um design melhor), a segunda versão possui também a funcionalidade de marcar as tarefas já realizadas.
+A segunda versão foi implementada com o Spring Boot, assim como com o Spring MVC. Além das funcionalidades da primeira versão com JSF (e um design melhor), a segunda versão possui também a funcionalidade de marcar as tarefas já realizadas
 
 #### E: Spring MVC
-A segunda versão foi implementada com o Spring MVC, assim como com o Spring Boot
+A segunda versão foi implementada com o Spring MVC, assim como com o Spring Boot. Fora implementados um modelo (referente ao items da lista de tarefas), dois controladores (um para o roteamento da página em Thymeleaf, outro para a API), e um template (servindo o front-end da segunda versão)
 
 #### F: Bootstrap 4
 Foi utilizado o Bootstrap tanto na segunda versão (com Thymeleaf) quanto no React.js
 
 #### I: React.js
-Foi implementada uma terceira versão do projeto, utilizando React.js como front-end e sendo alimentado pelo projeto em Spring, onde foi implementado uma API se baseando no modelo REST (mas não seguindo todas as definições).
+Foi implementada uma terceira versão do projeto, utilizando React.js como front-end e sendo alimentado pelo projeto em Spring, onde foi implementado uma API se baseando no modelo REST (mas não seguindo todas as definições). O front-end possui um design similar, senão igual, ao do implementado com Thymeleaf
